@@ -3,9 +3,11 @@ package com.revature.controller;
 import java.io.IOException;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.models.ReservationEmail;
 import com.revature.service.EmailService;
 
 /**
@@ -38,8 +40,15 @@ public class EmailController {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@PostMapping("sendconfirmation")
-	public void sendConfirmation() throws IOException {
+	public void sendConfirmation(@RequestBody ReservationEmail reservationEmail) throws IOException {
 		
+		es.sendEmail(reservationEmail.getEmail(),
+				     "Confirmation for Resource Force reservation", 
+				     "You've succesfully scheduled a reservation from "+
+				     reservationEmail.getStartTime()+" to " +
+				     reservationEmail.getEndTime()+ " at " +
+				     reservationEmail.getResourceName() +" in "+
+				     reservationEmail.getBuildingName());
 	}
 	
 	/**
