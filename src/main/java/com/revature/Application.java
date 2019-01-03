@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.revature.service.EmailService;
 
@@ -18,6 +19,7 @@ import com.revature.service.EmailService;
  * 
  */
 @SpringBootApplication
+@EnableScheduling
 public class Application {
 
 	/**

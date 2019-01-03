@@ -27,11 +27,11 @@ public class AwsCredentials {
  */
 private AWSCredentials createAWSCredentials() throws IOException {
 		
-		/*Properties properties = new Properties();
-		properties.load(getClass().getClassLoader().getResourceAsStream("aws.properties"));*/
-
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAIO4666D2CT5KVY3A",
-										"FBBD1No2KxtwtTsfbjb4Zzvj1IXQOSOv1iYIJoqd");
+		
+		String key = System.getenv("AWS.KEY");
+		String secret = System.getenv("AWS.SECRET");
+		AWSCredentials credentials = new BasicAWSCredentials(key,
+															secret);
 		return credentials;
 		
 		}
