@@ -39,12 +39,9 @@ public class EmailService {
 	 * @param body the content or message of the email.
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	@Scheduled(cron = "0 0 11 3 JAN ? 2019")
+
 	public void sendEmail(String to, String subject, String body) throws IOException {
-		System.out.println("message sent");
-		to = "jpserna@gmail.com";
-		subject = "testing from java";
-		body = "should send at 11 cause ill do it again at 2";
+
 		EmailBuilder email = new AwsEmailBuilder(ac.createSimpleEmailService());
 		email.withFrom(SENDER)
 			   .withTo(to)
