@@ -39,8 +39,7 @@ public class EmailController {
 	 */
 	@PostMapping("sendconfirmation")
 	public void sendConfirmation() throws IOException {
-		/* Note: at the moment it sends the same message to the same email */
-		es.sendEmail("zxanderrodriguez@gmail.com", "testing this", "it worked!! maybe");
+		
 	}
 	
 	/**

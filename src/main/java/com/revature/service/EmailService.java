@@ -25,7 +25,7 @@ public class EmailService {
 	AwsCredentials ac = new AwsCredentials();
 	
 	/** The sender. The test email associated with the AWS console to send email */
-	private String SENDER = "resource.service.dummy@gmail.com";
+	private String SENDER = "resource.service.dummy@gmail.com";//"resource.service.dummy@gmail.com"
 	
 	
 	/**
