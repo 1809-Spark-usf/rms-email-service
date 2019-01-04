@@ -27,11 +27,7 @@ public class AwsCredentials {
  */
 private AWSCredentials createAWSCredentials() throws IOException {
 		
-		
-		String key = System.getenv("AWS.KEY");
-		String secret = System.getenv("AWS.SECRET");
-		AWSCredentials credentials = new BasicAWSCredentials(key,
-															secret);
+		AWSCredentials credentials = new BasicAWSCredentials(System.getenv("REFORCE_AWS_KEY"),System.getenv("REFORCE_AWS_SECRET"));
 		return credentials;
 		
 		}
