@@ -2,6 +2,9 @@ package com.revature.models;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * The ReservationEmail Class
  * Used to transfer information needed

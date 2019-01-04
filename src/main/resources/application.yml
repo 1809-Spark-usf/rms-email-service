@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: email
-  config:
-    location: http://localhost:1001
