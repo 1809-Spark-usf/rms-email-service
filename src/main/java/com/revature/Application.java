@@ -19,6 +19,7 @@ import com.revature.service.EmailService;
  * 
  */
 @SpringBootApplication
+@EnableScheduling
 public class Application {
 
 	/**

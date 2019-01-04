@@ -25,7 +25,7 @@ public class EmailService {
 	AwsCredentials ac = new AwsCredentials();
 	
 	/** The sender. The test email associated with the AWS console to send email */
-	private String SENDER = System.getenv("AWS.KEY");
+	private String SENDER = System.getenv("AWS.SENDER");
 	
 	
 	/**
@@ -39,7 +39,7 @@ public class EmailService {
 	 * @param body the content or message of the email.
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-
+	//@Scheduled(cron = "0 0 3 ? * *")
 	public void sendEmail(String to, String subject, String body) throws IOException {
 
 		EmailBuilder email = new AwsEmailBuilder(ac.createSimpleEmailService());

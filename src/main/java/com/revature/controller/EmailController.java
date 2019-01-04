@@ -1,7 +1,9 @@
 package com.revature.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +52,7 @@ public class EmailController {
 				     reservationEmail.getResourceName() +" in "+
 				     reservationEmail.getBuildingName());
 	}
+
 	
 	/**
 	 * Send reminder.
