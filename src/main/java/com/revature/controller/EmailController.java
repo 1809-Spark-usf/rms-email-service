@@ -24,7 +24,7 @@ import com.revature.service.EmailService;
 @RestController
 @RequestMapping("")
 public class EmailController {
-	
+
 	/** The Email service. */
 	EmailService es = new EmailService();
 	
@@ -53,7 +53,7 @@ public class EmailController {
 				     reservationEmail.getBuildingName());
 	}
 
-	
+
 	/**
 	 * Send reminder.
 	 * Method that listens to a sendreminder 
