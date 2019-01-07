@@ -1,9 +1,6 @@
 package com.revature.controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +21,7 @@ import com.revature.service.EmailService;
 @RestController
 @RequestMapping("")
 public class EmailController {
+	
 
 	/** The Email service. */
 	EmailService es = new EmailService();
@@ -44,6 +42,12 @@ public class EmailController {
 	@PostMapping("sendconfirmation")
 	public void sendConfirmation(@RequestBody ReservationEmail reservationEmail) throws IOException {
 		
+		/*Sends the ReservationEmail Object to the EmailRepositoryService
+		 * service that will save it to the Database*/
+		
+		/*Sends the ReservationEmail Object to the EmailService
+		 *that will go through amazon authorization and send the
+		 *created email.*/
 		es.sendEmail(reservationEmail.getEmail(),
 				     "Confirmation for Resource Force reservation", 
 				     "You've succesfully scheduled a reservation from "+

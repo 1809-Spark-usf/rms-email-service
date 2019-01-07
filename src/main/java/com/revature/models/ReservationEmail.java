@@ -14,33 +14,24 @@ import javax.persistence.Table;
  * @author Austin D. | 1811-Java-Nick 1/3/19 
  *
  */
-@Entity
-@Table(name="Reservation_Email")
 public class ReservationEmail {
 	
 	/**The id of the reservation for reminder purposes*/
-	@Id
-	@Column(name="slack_id")
 	private int reservationId;
 	
 	/**The email of the user making the reservation*/
-	@Column(name="email")
 	private String email;
 	
 	/**The start time of the reservation*/
-	@Column(name="start_time")
 	private LocalDateTime startTime;
 	
 	/**The end time of the reservation*/
-	@Column(name="end_time")
 	private LocalDateTime endTime;
 	
 	/**The building name the reservation is taking place in*/
-	@Column(name="building_name")
 	private String buildingName;
 	
 	/**The resource name associated with the building*/
-	@Column(name="resource_name")
 	private String resourceName;
 
 	public ReservationEmail() {
