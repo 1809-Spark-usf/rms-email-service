@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.ReservationEmail;
+import com.revature.models.VerificationEmail;
 import com.revature.service.EmailService;
 
 /**
@@ -127,8 +128,11 @@ public class EmailController {
 	 * any changes 
 	 */
 	@PostMapping("sendadminconfirmation")
-	public void sendAdminConfirmation() {
-		
+	public void sendAdminConfirmation(@RequestBody VerificationEmail verificationEmail) throws IOException{
+		if(verificationEmail.getAdminEmail() !=null && verificationEmail.getAdminEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))
+			es.sendEmail(verificationEmail.getAdminEmail(),
+			     "Resource Force New Account Verification", 
+			     "Use this link to verify your account: " + verificationEmail.getVerificationLink());
 	}
 	
 

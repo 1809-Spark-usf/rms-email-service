@@ -2,7 +2,7 @@ package com.revature.service;
 
 import java.io.IOException;
 
-import org.springframework.scheduling.annotation.Scheduled;
+
 import org.springframework.stereotype.Service;
 
 import com.revature.awscredential.AwsCredentials;
