@@ -2,8 +2,6 @@ package com.revature.models;
 
 import java.time.LocalDateTime;
 
-
-
 /**
  * The ReservationEmail Class
  * Used to transfer information needed

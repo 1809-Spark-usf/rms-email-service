@@ -2,10 +2,12 @@ package com.revature.service;
 
 import java.io.IOException;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.revature.awscredential.AwsCredentials;
+import com.revature.config.TemplateConfig;
 import com.revature.emailBuilder.EmailBuilder;
 import com.revature.models.AwsEmailBuilder;
 
@@ -21,6 +23,9 @@ import com.revature.models.AwsEmailBuilder;
 @Service
 public class EmailService {
 
+	@Autowired
+	TemplateConfig templateConfig;
+	
 	/** The AwsCredentials. Connection for the AWS email service.*/
 	AwsCredentials ac = new AwsCredentials();
 	
@@ -47,6 +52,12 @@ public class EmailService {
 			   .withSubject(subject)
 			   .withBody(body)
 			   .send();
+	}
+	
+	public void sendTemplatedEmail(String to, String templateName, String templateData) throws IOException {
+
+		EmailBuilder email = new AwsEmailBuilder(ac.createSimpleEmailService());
+		email.withFrom(SENDER).withTo(to).sendTemplatedEmail(templateName, templateData);
 	}
 
 }
