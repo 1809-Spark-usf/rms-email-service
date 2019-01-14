@@ -9,6 +9,7 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import com.amazonaws.services.simpleemail.model.SendTemplatedEmailRequest;
 import com.revature.emailBuilder.EmailBuilder;
 
 /**
@@ -85,7 +86,7 @@ public class AwsEmailBuilder implements EmailBuilder {
 	private List<String> getToAsList() {
 		return Arrays.asList(to.split(","));
 	}
-	/* Send.
+	/** Send.
 	 * Method that sends the message to the recipient.
 	 * Destination: is where the email is going to be sent to.
 	 * SendEmailRequest: makes the email to send to the AWS email service.
@@ -98,6 +99,15 @@ public class AwsEmailBuilder implements EmailBuilder {
 														createMessage());
 		simpleEmailService.sendEmail(request);
 		
+	}
+	
+	public void sendTemplatedEmail(String templateName, String templateData) {
+		SendTemplatedEmailRequest request = new SendTemplatedEmailRequest();
+		request.setDestination(new Destination(getToAsList()));
+		request.setSource(from);
+		request.setTemplate(templateName);
+		request.setTemplateData(templateData);
+		simpleEmailService.sendTemplatedEmail(request);
 	}
 
 	/**

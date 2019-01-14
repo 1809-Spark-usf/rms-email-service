@@ -1,5 +1,6 @@
 package com.revature.emailBuilder;
 
+
 /**
  * The Interface EmailBuilder.
  * skeleton of the email object itself.
@@ -48,6 +49,8 @@ public interface EmailBuilder {
 	 * method that sends the message to the recipient
 	 */
 	void send();
+	
+	void sendTemplatedEmail(String templateName, String templateData);
 	
 	/**
 	 * The getter of the "from" or the

@@ -1,14 +1,21 @@
 package com.revature.controller;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.ReservationEmail;
+import com.revature.models.TemplatedEmail;
+import com.revature.models.VerificationEmail;
 import com.revature.service.EmailService;
+import com.revature.config.TemplateConfig;
 
 /**
  * The Class EmailController.
@@ -22,6 +29,10 @@ import com.revature.service.EmailService;
 @RestController
 @RequestMapping("")
 public class EmailController {
+	
+	@Autowired
+	TemplateConfig templateConfig;
+
 	
 	/** The Email service. */
 	EmailService es = new EmailService();
@@ -38,19 +49,25 @@ public class EmailController {
 	 * It's only for confirming the users appointment.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws JSONException 
 	 */
 	@PostMapping("sendconfirmation")
-	public void sendConfirmation(@RequestBody ReservationEmail reservationEmail) throws IOException {
+	public void sendConfirmation(@RequestBody ReservationEmail reservationEmail) throws IOException{
 		
-		es.sendEmail(reservationEmail.getEmail(),
-				     "Confirmation for Resource Force reservation", 
-				     "You've succesfully scheduled a reservation from "+
-				     reservationEmail.getStartTime()+" to " +
-				     reservationEmail.getEndTime()+ " at " +
-				     reservationEmail.getResourceName() +" in "+
-				     reservationEmail.getBuildingName());
+		/*Sends the ReservationEmail Object to the EmailRepositoryService
+		 * service that will save it to the Database*/
+		
+		/*Sends the ReservationEmail Object to the EmailService
+		 *that will go through amazon authorization and send the
+		 *created email.*/
+		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getBuildingName(), reservationEmail.getResourceName());		
+				es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getConfirmTemplate(), new ObjectMapper().writeValueAsString(templateData));
+		
 	}
-	
+
+
 	/**
 	 * Send reminder.
 	 * Method that listens to a sendreminder 
@@ -82,11 +99,17 @@ public class EmailController {
 	 * Updates DB of the canceled appointment
 	 * and sends the user an email of their 
 	 * cancellation.
+	 * @throws IOException 
+	 * @throws JSONException 
 	 * 
 	 */
 	@PostMapping("sendcancellation")
-	public void sendCancellation() {
-	
+	public void sendCancellation(@RequestBody ReservationEmail reservationEmail) throws IOException {
+		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+		reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+		reservationEmail.getBuildingName(), reservationEmail.getResourceName());
+		
+		es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getCancelTemplate(), new ObjectMapper().writeValueAsString(templateData));
 	}
 	
 	/**
@@ -120,8 +143,9 @@ public class EmailController {
 	 * any changes 
 	 */
 	@PostMapping("sendadminconfirmation")
-	public void sendAdminConfirmation() {
-		
+	public void sendAdminConfirmation(@RequestBody VerificationEmail verificationEmail) throws IOException{
+		if(verificationEmail.getAdminEmail() !=null && verificationEmail.getAdminEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))	
+			es.sendTemplatedEmail(verificationEmail.getAdminEmail(), templateConfig.getVerifyTemplate(), new ObjectMapper().writeValueAsString(verificationEmail));
 	}
 	
 
