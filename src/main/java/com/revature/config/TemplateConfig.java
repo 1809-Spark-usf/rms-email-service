@@ -22,6 +22,7 @@ public class TemplateConfig {
 
 	private String cancelTemplate;
 	private String confirmTemplate;
+	private String verifyTemplate;
 	public String getCancelTemplate() {
 		return cancelTemplate;
 	}
@@ -34,14 +35,22 @@ public class TemplateConfig {
 	public void setConfirmTemplate(String confirmTemplate) {
 		this.confirmTemplate = confirmTemplate;
 	}
+	public String getVerifyTemplate() {
+		return verifyTemplate;
+	}
+	public void setVerifyTemplate(String verifyTemplate) {
+		this.verifyTemplate = verifyTemplate;
+	}
 	@Override
 	public String toString() {
-		return "TemplateConfig [cancelTemplate=" + cancelTemplate + ", confirmTemplate=" + confirmTemplate + "]";
+		return "TemplateConfig [cancelTemplate=" + cancelTemplate + ", confirmTemplate=" + confirmTemplate
+				+ ", verifyTemplate=" + verifyTemplate + "]";
 	}
-	public TemplateConfig(String cancelTemplate, String confirmTemplate) {
+	public TemplateConfig(String cancelTemplate, String confirmTemplate, String verifyTemplate) {
 		super();
 		this.cancelTemplate = cancelTemplate;
 		this.confirmTemplate = confirmTemplate;
+		this.verifyTemplate = verifyTemplate;
 	}
 	public TemplateConfig() {
 		super();

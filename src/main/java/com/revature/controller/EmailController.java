@@ -62,8 +62,7 @@ public class EmailController {
 		 *created email.*/
 		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
 				reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
-				reservationEmail.getBuildingName(), reservationEmail.getResourceName());
-				
+				reservationEmail.getBuildingName(), reservationEmail.getResourceName());		
 				es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getConfirmTemplate(), new ObjectMapper().writeValueAsString(templateData));
 		
 	}
@@ -145,10 +144,8 @@ public class EmailController {
 	 */
 	@PostMapping("sendadminconfirmation")
 	public void sendAdminConfirmation(@RequestBody VerificationEmail verificationEmail) throws IOException{
-		if(verificationEmail.getAdminEmail() !=null && verificationEmail.getAdminEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))
-			es.sendEmail(verificationEmail.getAdminEmail(),
-			     "Resource Force New Account Verification", 
-			     "Use this link to verify your account: " + verificationEmail.getVerificationLink());
+		if(verificationEmail.getAdminEmail() !=null && verificationEmail.getAdminEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))	
+			es.sendTemplatedEmail(verificationEmail.getAdminEmail(), templateConfig.getVerifyTemplate(), new ObjectMapper().writeValueAsString(verificationEmail));
 	}
 	
 
