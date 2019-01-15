@@ -1,16 +1,20 @@
 package com.revature.controller;
 
 import java.io.IOException;
+import java.net.URI;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.revature.models.ReservationEmail;
 import com.revature.models.TemplatedEmail;
 import com.revature.models.VerificationEmail;
@@ -36,6 +40,10 @@ public class EmailController {
 	
 	/** The Email service. */
 	EmailService es = new EmailService();
+	
+	/** The remider URI.*/
+	@Value("${RMS_REMINDER_URL:http://localhost:8080/reminder/}")
+	String emailUri;
 	
 	/**
 	 * Send confirmation.
@@ -64,9 +72,27 @@ public class EmailController {
 				reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
 				reservationEmail.getBuildingName(), reservationEmail.getResourceName());		
 				es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getConfirmTemplate(), new ObjectMapper().writeValueAsString(templateData));
-		
+				
+				/* Sending the object to another method so it can send it to the reminder service*/
+				sendToReminderService(reservationEmail);
 	}
-
+	/**
+	 * 
+	 * @param reservationEmail
+	 */
+	@HystrixCommand(fallbackMethod = "emailFallback")
+	public void sendToReminderService(ReservationEmail reservationEmail) {
+		/* Creates the rest template to send the object to that URL (AKA reminder service) */
+		new RestTemplate().postForLocation(URI.create(emailUri + "newreminder"), reservationEmail);
+	}
+	/**
+	 * 
+	 * @param reservation
+	 */
+	@SuppressWarnings("unused")
+	private void emailFallback(ReservationEmail reservation) {
+		System.out.println("fail to send to reminder");
+	}
 
 	/**
 	 * Send reminder.
@@ -83,8 +109,17 @@ public class EmailController {
 	 * Coming soon.
 	 */
 	@PostMapping("sendreminder")
-	public void sendReminder() {
-		
+	public void sendReminder(@RequestBody ReservationEmail reservationEmail) throws IOException {
+	
+		/*Sends the ReservationEmail Object to the EmailService
+		 *that will go through amazon authorization and send the
+		 *created email.*/
+		System.out.println("Sending the reminder");
+		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getBuildingName(), reservationEmail.getResourceName());		
+				es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getReminderTemplate(), new ObjectMapper().writeValueAsString(templateData));
+				
 	}
 	
 	/**
@@ -108,7 +143,6 @@ public class EmailController {
 		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
 		reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
 		reservationEmail.getBuildingName(), reservationEmail.getResourceName());
-		
 		es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getCancelTemplate(), new ObjectMapper().writeValueAsString(templateData));
 	}
 	

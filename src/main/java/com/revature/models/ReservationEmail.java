@@ -28,6 +28,17 @@ public class ReservationEmail {
 	
 	/**The resource name associated with the building*/
 	private String resourceName;
+	
+	/**The time before the startTime that the user wants a reminder*/
+	private int reminderTime;
+
+	public int getReminderTime() {
+		return reminderTime;
+	}
+
+	public void setReminderTime(int reminderTime) {
+		this.reminderTime = reminderTime;
+	}
 
 	public ReservationEmail() {
 		super();
