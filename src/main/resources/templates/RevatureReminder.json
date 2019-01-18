@@ -1,0 +1,8 @@
+{
+    "Template": {
+    "TemplateName": "RevatureReminder",
+    "SubjectPart": "Reservation Reminder",
+    "HtmlPart": "<img src=\"http://s3.amazonaws.com/resource-force/revature-logo-120px.png\" alt=\"revature-logo.png\"> <p style=\"font-family: futura pt, arial\">Reminder: Your reservation is from {{startTime}} until {{endTime}} at {{buildingName}} in room {{resourceName}}.</p>",
+    "TextPart": "Reminder: Your reservation is from {{startTime}} until {{endTime}} at {{buildingName}} in room {{resourceName}}."
+    }
+}

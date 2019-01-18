@@ -30,10 +30,11 @@ public class ReservationEmailService {
 	 * 
 	 * @param reservation
 	 * @param resource
-	 * @author Austin D. 1811-Java-Nick 1/4/19
+	 * @author Austin D. | 1811-Java-Nick | 01/04/2019
 	 */
 	@HystrixCommand(fallbackMethod = "emailFallback")
 	public void sendReservationEmail(ReservationEmail reservation) {
+		
 		new RestTemplate().postForLocation(URI.create(emailUri + "newreminder"), reservation);
 	}
 

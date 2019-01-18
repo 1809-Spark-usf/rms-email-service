@@ -1,0 +1,8 @@
+{
+    "Template": {
+    "TemplateName": "RevatureCancellation",
+    "SubjectPart": "Reservation Cancelled",
+    "HtmlPart": "<img src=\"http://s3.amazonaws.com/resource-force/revature-logo-120px.png\" alt=\"revature-logo.png\"> <p style=\"font-family: futura pt, arial\">Your reservation from {{startTime}} until {{endTime}} at {{buildingName}} in room {{resourceName}} has been cancelled.</p>",
+    "TextPart": "Your reservation from {{startTime}} until {{endTime}} at {{buildingName}} in room {{resourceName}} has been cancelled."
+    }
+}

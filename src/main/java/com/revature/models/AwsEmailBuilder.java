@@ -35,6 +35,7 @@ public class AwsEmailBuilder implements EmailBuilder {
 	 * @param simpleEmailService the AWS SES connection.
 	 */
 	public AwsEmailBuilder(AmazonSimpleEmailService simpleEmailService) {
+		
 		this.simpleEmailService = simpleEmailService;
 	}
 	/* The sender of the email.

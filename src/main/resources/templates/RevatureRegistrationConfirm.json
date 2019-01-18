@@ -1,0 +1,8 @@
+{
+    "Template": {
+    "TemplateName": "RevatureRegistrationConfirm",
+    "SubjectPart": "Registration Confirmation",
+    "HtmlPart": "<img src=\"http://s3.amazonaws.com/resource-force/revature-logo-120px.png\" alt=\"revature-logo.png\"> <p style=\"font-family: futura pt, arial\">To confirm your account, please click on the following link, {{verificationLink}}, or copy and paste it into your browser.</p>",
+    "TextPart": "To confirm your account, please click on the following link, {{verificationLink}}, or copy and paste it into your browser."
+    }
+}

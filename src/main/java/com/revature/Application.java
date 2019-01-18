@@ -11,7 +11,7 @@ import com.revature.service.EmailService;
 /**
  * The Class Application.
  * This micro service handles sending
- * confirmation/cancellation/changed email
+ * confirmation/cancellation/updated email
  * to the user
  * 
  * @author 1811-Java-Nick | 01/02/2019

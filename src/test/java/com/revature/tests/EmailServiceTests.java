@@ -47,7 +47,7 @@ import com.revature.service.EmailService;
  * AWS may have trouble sending multiple emails at 
  * once while the account is in sandbox mode.
  * 
- * @author Austin D. 1811-Java-Nick 1/13/19 
+ * @author Austin D. | 1811-Java-Nick | 1/13/19 
  *
  */
 
@@ -68,6 +68,7 @@ public class EmailServiceTests {
 	@Test
 	@Ignore
 	public void sendConfirmationTest() throws JsonProcessingException, Exception {
+		
 		ReservationEmail testEmail = new ReservationEmail("resource.service.dummy@gmail.com", LocalDateTime.of(2019, 2, 12, 1, 0), LocalDateTime.of(2019, 2, 12, 2, 0), 
 				"Test Building", "Test Room", 1);
 		TemplatedEmail templateData = new TemplatedEmail(testEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
@@ -88,6 +89,7 @@ public class EmailServiceTests {
 	@Test
 	@Ignore
 	public void sendCancellationTest() throws JsonProcessingException, Exception {
+		
 		ReservationEmail testEmail = new ReservationEmail("resource.service.dummy@gmail.com", LocalDateTime.of(2019, 2, 12, 1, 0), LocalDateTime.of(2019, 2, 12, 2, 0), 
 				"Test Building", "Test Room", 1);
 		TemplatedEmail templateData = new TemplatedEmail(testEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
@@ -107,6 +109,7 @@ public class EmailServiceTests {
 	
 	@Test
 	public void sendAdminConfirmationTest() throws JsonProcessingException, Exception {
+		
 		VerificationEmail testEmail = new VerificationEmail("resource.service.dummy@gmail.com", "google.com");
 		ObjectMapper om = new ObjectMapper();
 		om.registerModule(new JavaTimeModule());
