@@ -16,4 +16,4 @@ jobs:
       script: mvn package
       
     - stage: quality
-      script: mvn sonar:sonar
+      script: mvn sonar:sonar 
