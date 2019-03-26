@@ -95,22 +95,6 @@ public class EmailControllerTests {
 	}
 
 	/**
-	 * Send reminder. Method that listens to a sendreminder end point, grabs the
-	 * body of the site and extracts the necessary components to form the email. The
-	 * components are the user email, the subject of the message and the message
-	 * itself.
-	 * 
-	 * It's to send a reminder message to the client. this method is dependent with
-	 * a schedule service that will check every minute if a user has an appointment
-	 * Coming soon.
-	 */
-
-	// @PostMapping("sendreminder")
-	public void sendReminder() {
-
-	}
-
-	/**
 	 * Send cancellation. Method that listens to a send cancellation end point,
 	 * grabs the body of the site and extracts the necessary components to form the
 	 * email. The components are the user email, the subject of the message and the
@@ -148,20 +132,6 @@ public class EmailControllerTests {
 		mockMvc.perform(post("/sendcancellation").contentType(MediaType.APPLICATION_JSON)
 				.content(om.writeValueAsString(reservationEmail)).accept(MediaType.APPLICATION_JSON)).andDo(print())
 				.andExpect(status().isCreated());
-
-	}
-
-	/**
-	 * Send update. Method that listens to a sendupdate end point, grabs the body of
-	 * the site and extracts the necessary components to form the email. The
-	 * components are the user email, the subject of the message and the message
-	 * itself.
-	 * 
-	 * sends updated information to the user, the update includes reminder changes
-	 * or appointment details changes.
-	 */
-	// @PostMapping("sendupdate")
-	public void sendUpdate() {
 
 	}
 
