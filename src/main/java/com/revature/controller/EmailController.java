@@ -5,17 +5,20 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.config.TemplateConfig;
 import com.revature.models.ReservationEmail;
 import com.revature.models.TemplatedEmail;
 import com.revature.models.VerificationEmail;
 import com.revature.service.EmailService;
-import com.revature.config.TemplateConfig;
 
 /**
  * The Class EmailController.
@@ -35,7 +38,8 @@ public class EmailController {
 
 	
 	/** The Email service. */
-	EmailService es = new EmailService();
+	@Autowired
+	EmailService es;
 	
 	/**
 	 * Send confirmation.
@@ -52,6 +56,7 @@ public class EmailController {
 	 * @throws JSONException 
 	 */
 	@PostMapping("sendconfirmation")
+	@ResponseStatus(HttpStatus.CREATED)
 	public void sendConfirmation(@RequestBody ReservationEmail reservationEmail) throws IOException{
 		System.out.println("MADE IT HERE INTO THE FUNCTION.");
 		
@@ -105,6 +110,7 @@ public class EmailController {
 	 * 
 	 */
 	@PostMapping("sendcancellation")
+	@ResponseStatus(HttpStatus.CREATED)
 	public void sendCancellation(@RequestBody ReservationEmail reservationEmail) throws IOException {
 		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
 		reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
@@ -144,6 +150,7 @@ public class EmailController {
 	 * any changes 
 	 */
 	@PostMapping("sendadminconfirmation")
+	@ResponseStatus(HttpStatus.CREATED)
 	public void sendAdminConfirmation(@RequestBody VerificationEmail verificationEmail) throws IOException{
 		if(verificationEmail.getAdminEmail() !=null && verificationEmail.getAdminEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))	
 			es.sendTemplatedEmail(verificationEmail.getAdminEmail(), templateConfig.getVerifyTemplate(), new ObjectMapper().writeValueAsString(verificationEmail));
