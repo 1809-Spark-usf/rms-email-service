@@ -31,19 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
- * Email Service Tests*
- * 
- * Used to test the email service and
- * confirm that what's being sent by
- * our controller is correct for each
- * end point.
- * 
- * Note that these tests should be run with
- * an email verified with the AWS SES account
- * and should be tested one at a time using the
- * Ignore annotation to skip tests. This is because
- * AWS may have trouble sending multiple emails at 
- * once while the account is in sandbox mode.
+ * These tests were not checked and we are not sure if they are working.
  * 
  * @author Thomas Reardon 3/25/19 
  */
