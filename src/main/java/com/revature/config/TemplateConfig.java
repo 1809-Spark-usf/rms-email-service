@@ -61,11 +61,4 @@ public class TemplateConfig {
 		super();
 	}
 	
-    @Bean
-    @Primary
-    public Jackson2ObjectMapperBuilder objectMapperBuilder() {
-        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-        return builder.modulesToInstall(new JavaTimeModule());
-    }
-	
 }
