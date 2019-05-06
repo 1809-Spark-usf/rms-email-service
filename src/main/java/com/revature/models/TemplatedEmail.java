@@ -2,6 +2,7 @@ package com.revature.models;
 
 public class TemplatedEmail {
 
+	private int id;	
 	private String startTime;
 	private String endTime;
 	private String buildingName;
@@ -42,9 +43,17 @@ public class TemplatedEmail {
 		this.buildingName = buildingName;
 		this.resourceName = resourceName;
 	}
+	
+
 	public TemplatedEmail() {
 		super();
 		
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

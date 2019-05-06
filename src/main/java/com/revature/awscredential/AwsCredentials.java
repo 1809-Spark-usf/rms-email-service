@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
 
@@ -39,7 +41,8 @@ public class AwsCredentials {
 	@SuppressWarnings("deprecation")
 	public AmazonSimpleEmailService createSimpleEmailService() throws IOException {
 
-		return new AmazonSimpleEmailServiceClient(createAWSCredentials());
-
+		AmazonSimpleEmailService s = new AmazonSimpleEmailServiceClient(createAWSCredentials());
+		s.setRegion(Region.getRegion(Regions.US_WEST_2));
+		return s;
 	}
 }
