@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+
 import org.junit.Before;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -70,6 +72,7 @@ public class EmailServiceTests {
 //		// allow objectmapper to map LocalDateTime correctly
 //		om.registerModule(new JavaTimeModule());
 //		om.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
 //	}
 //	
 //	@Test
@@ -80,6 +83,7 @@ public class EmailServiceTests {
 //				testEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
 //				testEmail.getBuildingName(), testEmail.getResourceName());
 //		
+
 //		Mockito.when(emailService.sendTemplatedEmail(testEmail.getEmail(), templateConfig.getConfirmTemplate(), om.writeValueAsString(templateData))).thenReturn(om.writeValueAsString(templateData));
 //		
 //		ResultActions request = mockMvc.perform(post("/sendconfirmation")
@@ -122,4 +126,6 @@ public class EmailServiceTests {
 //		request.andExpect(status().isOk());
 //	}
 //
+
 } 
+

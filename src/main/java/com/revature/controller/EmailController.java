@@ -58,7 +58,9 @@ public class EmailController {
 	@PostMapping("sendconfirmation")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void sendConfirmation(@RequestBody ReservationEmail reservationEmail) throws IOException{
+
 //		System.out.println("MADE IT HERE INTO THE FUNCTION.");
+
 		
 		/*Sends the ReservationEmail Object to the EmailRepositoryService
 		 * service that will save it to the Database*/

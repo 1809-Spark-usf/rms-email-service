@@ -168,6 +168,7 @@ public class EmailControllerTests {
 				.andExpect(status().isCreated());
 
 	}
+
 	
 	// @PostMapping("sendreminder")
 	@Test
@@ -220,4 +221,5 @@ public class EmailControllerTests {
 				.andExpect(status().isCreated());
 
 	}
+
 }
