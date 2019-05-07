@@ -168,4 +168,58 @@ public class EmailControllerTests {
 				.andExpect(status().isCreated());
 
 	}
+
+	
+	// @PostMapping("sendreminder")
+	@Test
+	public void sendReminder() throws Exception {
+
+		ReservationEmail reservationEmail = new ReservationEmail();
+		reservationEmail.setStartTime(LocalDateTime.now());
+		reservationEmail.setEndTime(LocalDateTime.now());
+		reservationEmail.setBuildingName("building name");
+		reservationEmail.setEmail("user@gmail.com");
+
+		TemplatedEmail templateDataTest = new TemplatedEmail(
+				reservationEmail.getStartTime()
+						.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getEndTime()
+						.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getBuildingName(), reservationEmail.getResourceName());
+
+		Mockito.when(emailService.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getCancelTemplate(),
+				om.writeValueAsString(templateDataTest))).thenReturn(om.writeValueAsString(templateDataTest));
+
+		mockMvc.perform(post("/sendreminder").contentType(MediaType.APPLICATION_JSON)
+				.content(om.writeValueAsString(reservationEmail)).accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isCreated());
+
+	}
+
+	// @PostMapping("sendupdate")
+	@Test
+	public void sendUpdate() throws Exception {
+
+		ReservationEmail reservationEmail = new ReservationEmail();
+		reservationEmail.setStartTime(LocalDateTime.now());
+		reservationEmail.setEndTime(LocalDateTime.now());
+		reservationEmail.setBuildingName("building name");
+		reservationEmail.setEmail("user@gmail.com");
+
+		TemplatedEmail templateDataTest = new TemplatedEmail(
+				reservationEmail.getStartTime()
+						.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getEndTime()
+						.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getBuildingName(), reservationEmail.getResourceName());
+
+		Mockito.when(emailService.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getCancelTemplate(),
+				om.writeValueAsString(templateDataTest))).thenReturn(om.writeValueAsString(templateDataTest));
+
+		mockMvc.perform(post("/sendupdate").contentType(MediaType.APPLICATION_JSON)
+				.content(om.writeValueAsString(reservationEmail)).accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isCreated());
+
+	}
+
 }

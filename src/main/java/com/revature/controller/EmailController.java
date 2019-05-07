@@ -58,7 +58,9 @@ public class EmailController {
 	@PostMapping("sendconfirmation")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void sendConfirmation(@RequestBody ReservationEmail reservationEmail) throws IOException{
-		System.out.println("MADE IT HERE INTO THE FUNCTION.");
+
+//		System.out.println("MADE IT HERE INTO THE FUNCTION.");
+
 		
 		/*Sends the ReservationEmail Object to the EmailRepositoryService
 		 * service that will save it to the Database*/
@@ -69,7 +71,7 @@ public class EmailController {
 		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
 				reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
 				reservationEmail.getBuildingName(), reservationEmail.getResourceName());		
-				es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getConfirmTemplate(), new ObjectMapper().writeValueAsString(templateData));
+		es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getConfirmTemplate(), new ObjectMapper().writeValueAsString(templateData));
 		
 	}
 
@@ -89,8 +91,13 @@ public class EmailController {
 	 * Coming soon.
 	 */
 	@PostMapping("sendreminder")
-	public void sendReminder() {
+	@ResponseStatus(HttpStatus.CREATED)
+	public void sendReminder(@RequestBody ReservationEmail reservationEmail) throws IOException{
 		
+		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getBuildingName(), reservationEmail.getResourceName());		
+		es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getReminderTemplate(), new ObjectMapper().writeValueAsString(templateData));
 	}
 	
 	/**
@@ -133,7 +140,13 @@ public class EmailController {
 	 * changes.
 	 */
 	@PostMapping("sendupdate")
-	public void sendUpdate() {
+	@ResponseStatus(HttpStatus.CREATED)
+	public void sendUpdate(@RequestBody ReservationEmail reservationEmail) throws IOException {
+		
+		TemplatedEmail templateData = new TemplatedEmail(reservationEmail.getStartTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getEndTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+				reservationEmail.getBuildingName(), reservationEmail.getResourceName());		
+		es.sendTemplatedEmail(reservationEmail.getEmail(), templateConfig.getUpdateTemplate(), new ObjectMapper().writeValueAsString(templateData));
 	
 	}
 	

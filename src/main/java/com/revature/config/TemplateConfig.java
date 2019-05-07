@@ -28,35 +28,66 @@ public class TemplateConfig {
 	private String cancelTemplate;
 	private String confirmTemplate;
 	private String verifyTemplate;
+	private String reminderTemplate;
+	private String updateTemplate;
+	
 	public String getCancelTemplate() {
 		return cancelTemplate;
 	}
+
 	public void setCancelTemplate(String cancelTemplate) {
 		this.cancelTemplate = cancelTemplate;
 	}
+
 	public String getConfirmTemplate() {
 		return confirmTemplate;
 	}
+
 	public void setConfirmTemplate(String confirmTemplate) {
 		this.confirmTemplate = confirmTemplate;
 	}
+
 	public String getVerifyTemplate() {
 		return verifyTemplate;
 	}
+
 	public void setVerifyTemplate(String verifyTemplate) {
 		this.verifyTemplate = verifyTemplate;
 	}
+
+	public String getReminderTemplate() {
+		return reminderTemplate;
+	}
+
+	public void setReminderTemplate(String reminderTemplate) {
+		this.reminderTemplate = reminderTemplate;
+	}
+
+	public String getUpdateTemplate() {
+		return updateTemplate;
+	}
+
+	public void setUpdateTemplate(String updateTemplate) {
+		this.updateTemplate = updateTemplate;
+	}
+	
 	@Override
 	public String toString() {
 		return "TemplateConfig [cancelTemplate=" + cancelTemplate + ", confirmTemplate=" + confirmTemplate
-				+ ", verifyTemplate=" + verifyTemplate + "]";
+				+ ", verifyTemplate=" + verifyTemplate + ", reminderTemplate=" + reminderTemplate + ", updateTemplate="
+				+ updateTemplate + "]";
 	}
-	public TemplateConfig(String cancelTemplate, String confirmTemplate, String verifyTemplate) {
+
+	public TemplateConfig(String cancelTemplate, String confirmTemplate, String verifyTemplate, String reminderTemplate,
+			String updateTemplate) {
 		super();
 		this.cancelTemplate = cancelTemplate;
 		this.confirmTemplate = confirmTemplate;
 		this.verifyTemplate = verifyTemplate;
+		this.reminderTemplate = reminderTemplate;
+		this.updateTemplate = updateTemplate;
 	}
+
 	public TemplateConfig() {
 		super();
 	}

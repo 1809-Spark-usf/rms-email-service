@@ -26,7 +26,8 @@ public class EmailService {
 	AwsCredentials ac = new AwsCredentials();
 	
 	/** The sender. The test email associated with the AWS console to send email */
-	private String SENDER = System.getenv("REFORCE_AWS_SENDER");
+	//private String SENDER = System.getenv("REFORCE_AWS_SENDER");
+	private String SENDER = "Project3Revature@gmail.com";
 	
 	
 	/**
